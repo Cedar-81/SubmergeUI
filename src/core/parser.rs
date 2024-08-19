@@ -1,17 +1,12 @@
 use bevy::{
-    ecs::bundle,
     prelude::*,
-    scene::ron::value,
-    ui::{BorderRadius, FocusPolicy, Interaction, Style, UiRect, Val},
+    ui::{BorderRadius, FocusPolicy, Interaction, UiRect, Val},
 };
-use pest::{iterators::Pair, Parser, RuleType};
+use pest::{iterators::Pair, Parser};
 use pest_derive::Parser;
 use regex::Regex;
 
-use crate::{
-    core::style_bundles::ButtonStyleBundle,
-    utils::{colors::SubmergeColors, font_size::SubmergeText},
-};
+use crate::utils::{colors::SubmergeColors, font_size::SubmergeText};
 
 use super::style_bundles::GeneralStyle;
 
@@ -160,18 +155,7 @@ fn handler<'a>(pair: Pair<'a, Rule>, bundle: &'a mut GeneralStyle) -> Option<&'a
         }
 
         //todo: handle later
-        Rule::image => {
-            let mut inner_pairs = pair.clone().into_inner();
-
-            // Get the first inner pair
-            if let Some(next_pair) = inner_pairs.next() {
-                handler(next_pair, bundle)
-            } else {
-                // println!("pair: {:?}", pair);
-                let value = pair.as_span().as_str();
-                None
-            }
-        }
+        Rule::image => None,
         //end-todo:
         Rule::transform => {
             let values: Vec<&str> = pair.as_span().as_str().split("-").collect();
@@ -196,18 +180,7 @@ fn handler<'a>(pair: Pair<'a, Rule>, bundle: &'a mut GeneralStyle) -> Option<&'a
         }
 
         //todo: handle later
-        Rule::global_transform => {
-            let mut inner_pairs = pair.clone().into_inner();
-
-            // Get the first inner pair
-            if let Some(next_pair) = inner_pairs.next() {
-                handler(next_pair, bundle)
-            } else {
-                // println!("pair: {:?}", pair);
-                let value = pair.as_span().as_str();
-                None
-            }
-        }
+        Rule::global_transform => None,
         //end-todo:
 
         //cross check everything above
@@ -313,66 +286,11 @@ fn handler<'a>(pair: Pair<'a, Rule>, bundle: &'a mut GeneralStyle) -> Option<&'a
         Rule::COLOR_BASE => None,
 
         //todo: finish up
-        Rule::GRID_TEMPLATE_ROWS => {
-            let mut inner_pairs = pair.clone().into_inner();
-
-            // Get the first inner pair
-            if let Some(next_pair) = inner_pairs.next() {
-                handler(next_pair, bundle)
-            } else {
-                // println!("pair: {:?}", pair);
-                let value = pair.as_span().as_str();
-                None
-            }
-        }
-        Rule::GRID_TEMPLATE_COLUMNS => {
-            let mut inner_pairs = pair.clone().into_inner();
-
-            // Get the first inner pair
-            if let Some(next_pair) = inner_pairs.next() {
-                handler(next_pair, bundle)
-            } else {
-                // println!("pair: {:?}", pair);
-                let value = pair.as_span().as_str();
-                None
-            }
-        }
-        Rule::GRID_AUTO_ROWS => {
-            let mut inner_pairs = pair.clone().into_inner();
-
-            // Get the first inner pair
-            if let Some(next_pair) = inner_pairs.next() {
-                handler(next_pair, bundle)
-            } else {
-                // println!("pair: {:?}", pair);
-                let value = pair.as_span().as_str();
-                None
-            }
-        }
-        Rule::GRID_AUTO_COLUMNS => {
-            let mut inner_pairs = pair.clone().into_inner();
-
-            // Get the first inner pair
-            if let Some(next_pair) = inner_pairs.next() {
-                handler(next_pair, bundle)
-            } else {
-                // println!("pair: {:?}", pair);
-                let value = pair.as_span().as_str();
-                None
-            }
-        }
-        Rule::GRID_PLACEMENT => {
-            let mut inner_pairs = pair.clone().into_inner();
-
-            // Get the first inner pair
-            if let Some(next_pair) = inner_pairs.next() {
-                handler(next_pair, bundle)
-            } else {
-                // println!("pair: {:?}", pair);
-                let value = pair.as_span().as_str();
-                None
-            }
-        }
+        Rule::GRID_TEMPLATE_ROWS => None,
+        Rule::GRID_TEMPLATE_COLUMNS => None,
+        Rule::GRID_AUTO_ROWS => None,
+        Rule::GRID_AUTO_COLUMNS => None,
+        Rule::GRID_PLACEMENT => None,
         //end-todo:
         Rule::COLOR => {
             let mut inner_pairs = pair.into_inner();
@@ -757,90 +675,13 @@ fn handler<'a>(pair: Pair<'a, Rule>, bundle: &'a mut GeneralStyle) -> Option<&'a
         }
 
         //todo: handle grid propely
-        Rule::grid_auto_flow_style => {
-            let mut inner_pairs = pair.clone().into_inner();
-
-            // Get the first inner pair
-            if let Some(next_pair) = inner_pairs.next() {
-                handler(next_pair, bundle)
-            } else {
-                // println!("pair: {:?}", pair);
-                let value = pair.as_span().as_str();
-                None
-            }
-        }
-        Rule::grid_template_rows_style => {
-            let mut inner_pairs = pair.clone().into_inner();
-
-            // Get the first inner pair
-            if let Some(next_pair) = inner_pairs.next() {
-                handler(next_pair, bundle)
-            } else {
-                // println!("pair: {:?}", pair);
-                let value = pair.as_span().as_str();
-                None
-            }
-        }
-        Rule::grid_template_columns_style => {
-            let mut inner_pairs = pair.clone().into_inner();
-
-            // Get the first inner pair
-            if let Some(next_pair) = inner_pairs.next() {
-                handler(next_pair, bundle)
-            } else {
-                // println!("pair: {:?}", pair);
-                let value = pair.as_span().as_str();
-                None
-            }
-        }
-        Rule::grid_auto_rows_style => {
-            let mut inner_pairs = pair.clone().into_inner();
-
-            // Get the first inner pair
-            if let Some(next_pair) = inner_pairs.next() {
-                handler(next_pair, bundle)
-            } else {
-                // println!("pair: {:?}", pair);
-                let value = pair.as_span().as_str();
-                None
-            }
-        }
-        Rule::grid_auto_columns_style => {
-            let mut inner_pairs = pair.clone().into_inner();
-
-            // Get the first inner pair
-            if let Some(next_pair) = inner_pairs.next() {
-                handler(next_pair, bundle)
-            } else {
-                // println!("pair: {:?}", pair);
-                let value = pair.as_span().as_str();
-                None
-            }
-        }
-        Rule::grid_row_style => {
-            let mut inner_pairs = pair.clone().into_inner();
-
-            // Get the first inner pair
-            if let Some(next_pair) = inner_pairs.next() {
-                handler(next_pair, bundle)
-            } else {
-                // println!("pair: {:?}", pair);
-                let value = pair.as_span().as_str();
-                None
-            }
-        }
-        Rule::grid_column_style => {
-            let mut inner_pairs = pair.clone().into_inner();
-
-            // Get the first inner pair
-            if let Some(next_pair) = inner_pairs.next() {
-                handler(next_pair, bundle)
-            } else {
-                // println!("pair: {:?}", pair);
-                let value = pair.as_span().as_str();
-                None
-            }
-        }
+        Rule::grid_auto_flow_style => None,
+        Rule::grid_template_rows_style => None,
+        Rule::grid_template_columns_style => None,
+        Rule::grid_auto_rows_style => None,
+        Rule::grid_auto_columns_style => None,
+        Rule::grid_row_style => None,
+        Rule::grid_column_style => None,
         //end-todo:
         Rule::property => None,
 

@@ -1,19 +1,15 @@
 use bevy::{
     app::{App, Startup},
-    asset::AssetServer,
     prelude::*,
-    DefaultPlugins,
 };
 use bevy_submerge_ui::{
     core::{
         style_bundles::{ButtonStyleBundle, ContainerStyleBundle, SubmergeStyle},
-        ui_bundles::{SButtonBundle, SContainerBundle, STextBundle, WithChildren},
+        ui_bundles::{SButtonBundle, SContainerBundle, WithChildren},
         ui_plugin::SubmergeUi,
     },
-    utils::{border_radius::SubmergeBR, colors::SubmergeColors, font_size::SubmergeText},
+    utils::{border_radius::SubmergeBR, colors::SubmergeColors},
 };
-
-const NORMAL_BUTTON: Color = SubmergeColors::color(SubmergeColors::RED600);
 
 fn main() {
     App::new()
