@@ -29,7 +29,7 @@ In your project's `Cargo.toml`, add SubmergeUI as a local dependency:
 
 ```toml
 [dependencies]
-bevy = "0.11"
+bevy = "0.14.1"
 submergeui = { path = "../SubmergeUI" }
 
 ```
@@ -40,7 +40,7 @@ To use SubmergeUI in your Bevy project, simply add it as a plugin:
 
 ```rust
 use bevy::prelude::*;
-use submergeui::{SubmergeUIPlugin, ButtonBundle, ButtonStyleBundle};
+use submergeui::core::{ui_plugin::SubmergeUi, ui_bundles::{ButtonBundle, ButtonStyleBundle}};
 
 fn main() {
     App::new()
