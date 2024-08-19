@@ -20,7 +20,7 @@ SubmergeUI is a Rust UI library built on top of Bevy's ECS framework. It provide
 To get started, add SubmergeUI as a dependency to your project. Since the library is still in development and not yet released as a crate, you can clone the repository from GitHub:
 
 ```bash
-git clone <https://github.com/your-username/SubmergeUI.git>
+git clone <https://github.com/Cedar-81/SubmergeUI.git>
 cd SubmergeUI
 
 ```
