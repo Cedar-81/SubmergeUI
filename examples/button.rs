@@ -6,7 +6,7 @@ use bevy::{
 };
 use bevy_submerge_ui::{
     core::{
-        style_bundles::{ButtonStyleBundle, ContainerStyleBundle, SubmergeStyleBundle},
+        style_bundles::{ButtonStyleBundle, ContainerStyleBundle, SubmergeStyle},
         ui_bundles::{SButtonBundle, SContainerBundle, STextBundle, WithChildren},
         ui_plugin::SubmergeUi,
     },
@@ -17,10 +17,9 @@ const NORMAL_BUTTON: Color = SubmergeColors::color(SubmergeColors::RED600);
 
 fn main() {
     App::new()
-        .add_plugins(DefaultPlugins)
+        // .add_plugins(DefaultPlugins)
         .add_plugins(SubmergeUi)
         .add_systems(Startup, setup)
-        // .add_systems(Update, after_setup)
         .run();
 }
 
@@ -66,7 +65,7 @@ fn _sys(query: Query<&Style>) {
 //     });
 // }
 // asset_server: Res<AssetServer>
-fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
+fn setup(mut commands: Commands) {
     // let a = NORMAL_BUTTON.into();
     let s_button_style: ButtonStyleBundle = ButtonStyleBundle {
         style: Style {
@@ -86,19 +85,19 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
         ..default()
     };
 
-    let mut button_style = ButtonStyleBundle::apply_style(
-        "border-5px justify_content-center align_items-center padding-15px rounded-50% bg-red-100",
+    let button_style = ButtonStyleBundle::apply_style(
+        "border-5px justify_content-center align_items-center padding-15px border_color-white rounded-50% bg-red-100",
     );
 
-    button_style.border_color = BorderColor(Color::BLACK);
+    // button_style.border_color = BorderColor(Color::BLACK);
 
-    println!("button: {:?}", button_style);
+    // println!("button: {:?}", button_style);
 
-    let text_style = TextStyle {
-        font: asset_server.load("fonts/OpenSans-SemiBold.ttf"),
-        font_size: SubmergeText::text(SubmergeText::LG),
-        color: SubmergeColors::color(SubmergeColors::BLACK).into(),
-    };
+    // let text_style = TextStyle {
+    //     font: asset_server.load("fonts/OpenSans-SemiBold.ttf"),
+    //     font_size: SubmergeText::text(SubmergeText::LG),
+    //     color: SubmergeColors::color(SubmergeColors::BLACK).into(),
+    // };
 
     let _container_style = ContainerStyleBundle {
         style: Style {
@@ -135,9 +134,9 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
         SButtonBundle::new("another_play_button", s_button_style).child("another_play_button_txt"),
     );
 
-    commands
-        .spawn(STextBundle::from_section("First Button", text_style.clone()).id("play_button_txt"));
-    commands.spawn(
-        STextBundle::from_section("Another Button", text_style).id("another_play_button_txt"),
-    );
+    // commands
+    //     .spawn(STextBundle::from_section("First Button", text_style.clone()).id("play_button_txt"));
+    // commands.spawn(
+    //     STextBundle::from_section("Another Button", text_style).id("another_play_button_txt"),
+    // );
 }

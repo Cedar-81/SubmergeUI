@@ -4,6 +4,7 @@ property = _{
     border_radius
   | background_color
   | text_size
+  | border_color
   | text_color
   | interaction
   | focus_policy
@@ -16,11 +17,18 @@ property = _{
   | z_index
 }
 
+COLOR_BASE = {
+    "black"
+  | "white"
+}
+
+border_color = { "border_color-" ~ (COLOR | COLOR_BASE) }
+
 border_radius = { "rounded-" ~ ("none" | "sm" | "md" | "lg" | "full" | VALUE) }
 
-background_color = { "bg-" ~ COLOR }
+background_color = { "bg-" ~ (COLOR | COLOR_BASE) }
 
-text_color = { "text_color-" ~ COLOR }
+text_color = { "text_color-" ~ (COLOR | COLOR_BASE) }
 
 text_size = { "text-" ~ ("xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "5xl" | "6xl" | "7xl" | "8xl" | "9xl" | VALUE)  }
 

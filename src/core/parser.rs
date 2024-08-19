@@ -73,17 +73,45 @@ fn handler<'a>(pair: Pair<'a, Rule>, bundle: &'a mut GeneralStyle) -> Option<&'a
             None
         }
         Rule::background_color => {
-            let mut inner_pairs = pair.clone().into_inner();
+            let inner_pair = pair.clone().into_inner().next().unwrap();
 
-            handler(inner_pairs.next().unwrap(), bundle);
-            bundle.background_color = BackgroundColor(bundle.color);
+            if inner_pair.as_rule() == Rule::COLOR_BASE {
+                let color =
+                    SubmergeColors::get_color_from_style_text(inner_pair.as_span().as_str());
+                bundle.background_color = BackgroundColor(color);
+            } else {
+                handler(inner_pair, bundle);
+                bundle.background_color = BackgroundColor(bundle.color);
+            }
+
+            None
+        }
+        Rule::border_color => {
+            let inner_pair = pair.clone().into_inner().next().unwrap();
+
+            if inner_pair.as_rule() == Rule::COLOR_BASE {
+                let color =
+                    SubmergeColors::get_color_from_style_text(inner_pair.as_span().as_str());
+                bundle.border_color = BorderColor(color);
+            } else {
+                handler(inner_pair, bundle);
+                bundle.border_color = BorderColor(bundle.color);
+            }
 
             None
         }
         Rule::text_color => {
-            let mut inner_pairs = pair.clone().into_inner();
-            handler(inner_pairs.next().unwrap(), bundle);
-            bundle.text_color = Some(bundle.color);
+            let inner_pair = pair.clone().into_inner().next().unwrap();
+
+            if inner_pair.as_rule() == Rule::COLOR_BASE {
+                let color =
+                    SubmergeColors::get_color_from_style_text(inner_pair.as_span().as_str());
+                bundle.text_color = Some(color);
+            } else {
+                handler(inner_pair, bundle);
+                bundle.text_color = Some(bundle.color);
+            }
+
             None
         }
         Rule::text_size => {
@@ -282,6 +310,7 @@ fn handler<'a>(pair: Pair<'a, Rule>, bundle: &'a mut GeneralStyle) -> Option<&'a
                 None
             }
         }
+        Rule::COLOR_BASE => None,
 
         //todo: finish up
         Rule::GRID_TEMPLATE_ROWS => {

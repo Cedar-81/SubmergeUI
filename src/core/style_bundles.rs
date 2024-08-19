@@ -5,10 +5,14 @@ use bevy::ui::{ContentSize, FocusPolicy, Interaction, Style};
 
 use crate::core::parser::parser;
 
-pub trait SubmergeStyleBundle {
+use super::ui_bundles::STextBundle;
+
+pub trait SubmergeStyle {
     type Output;
 
     fn apply_style(style: &str) -> Self::Output;
+
+    fn from_section(value: impl Into<String>, style: &str) -> Option<STextBundle>;
 }
 
 #[derive(Bundle, Clone, Debug)]
@@ -158,41 +162,58 @@ pub struct TextStyleBundle {
     pub background_color: BackgroundColor,
 }
 
-impl SubmergeStyleBundle for ButtonStyleBundle {
+impl SubmergeStyle for ButtonStyleBundle {
     type Output = ButtonStyleBundle;
 
     fn apply_style(style: &str) -> Self::Output {
         let mut bundle = GeneralStyle::default();
         parser(style, &mut bundle);
-        // println!("Applying ButtonStyleBundle: {:?}", bundle);
         bundle.into()
-        // Handle button-specific logic here
+    }
+
+    fn from_section(value: impl Into<String>, style: &str) -> Option<STextBundle> {
+        let _ = value;
+        let _ = style;
+        None
     }
 }
 
-impl SubmergeStyleBundle for ContainerStyleBundle {
+impl SubmergeStyle for ContainerStyleBundle {
     type Output = ContainerStyleBundle;
 
     fn apply_style(style: &str) -> Self::Output {
         let mut bundle = GeneralStyle::default();
         parser(style, &mut bundle);
-        // println!("Applying ContainerStyleBundle");
-        // Handle container-specific logic here
-
         bundle.into()
+    }
+
+    fn from_section(value: impl Into<String>, style: &str) -> Option<STextBundle> {
+        let _ = value;
+        let _ = style;
+        None
     }
 }
 
-impl SubmergeStyleBundle for TextStyleBundle {
+impl SubmergeStyle for TextStyleBundle {
     type Output = TextStyleBundle;
 
     fn apply_style(style: &str) -> Self::Output {
         let mut bundle = GeneralStyle::default();
         parser(style, &mut bundle);
-        // println!("Applying TextStyleBundle");
 
         bundle.into()
-        // Handle text-specific logic here
+    }
+
+    fn from_section(value: impl Into<String>, style: &str) -> Option<STextBundle> {
+        let mut bundle = GeneralStyle::default();
+        parser(style, &mut bundle);
+
+        let s_text_bundle = STextBundle {
+            text: Text::from_section(value, bundle.text_style),
+            ..Default::default()
+        };
+
+        Some(s_text_bundle)
     }
 }
 
@@ -200,6 +221,7 @@ impl SubmergeStyleBundle for TextStyleBundle {
 pub struct GeneralStyle {
     // Common fields
     pub style: Style,
+    pub text_style: TextStyle,
     pub background_color: BackgroundColor,
     pub border_color: BorderColor,
     pub border_radius: BorderRadius,
