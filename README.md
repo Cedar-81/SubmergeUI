@@ -62,4 +62,4 @@ fn setup_ui(mut commands: Commands) {
 
 ### Examples
 
-For more examples, please refer to the `examples` folder in the repository.
+For more examples, please refer to the [`examples`](https://github.com/Cedar-81/SubmergeUI/tree/main/examples) folder in the repository.
