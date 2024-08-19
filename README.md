@@ -43,10 +43,10 @@ use bevy::prelude::*;
 use submergeui::{SubmergeUIPlugin, ButtonBundle, ButtonStyleBundle};
 
 fn main() {
-    App::build()
+    App::new()
         .add_plugins(DefaultPlugins)
-        .add_plugin(SubmergeUIPlugin)
-        .add_startup_system(setup_ui.system())
+        .add_plugins(SubmergeUi)
+        .add_systems(Startup, setup_ui)
         .run();
 }
 
