@@ -1,0 +1,211 @@
+style_definition = _{ ((style | property) ~ " ")+ ~ (style | property) }
+
+property = _{
+    border_radius
+  | background_color
+  | text_size
+  | text_color
+  | interaction
+  | focus_policy
+  | image
+  | transform
+  | global_transform
+  | visibility
+  | inherited_visibility
+  | view_visibility
+  | z_index
+}
+
+border_radius = { "rounded-" ~ ("none" | "sm" | "md" | "lg" | "full" | VALUE) }
+
+background_color = { "bg-" ~ COLOR }
+
+text_color = { "text_color-" ~ COLOR }
+
+text_size = { "text-" ~ ("xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "5xl" | "6xl" | "7xl" | "8xl" | "9xl" | VALUE)  }
+
+interaction = { "interaction-" ~ ("hovered" | "pressed" | "none") }
+
+focus_policy = { "focus-" ~ ("block" | "none") }
+
+image = { "image-" ~ IDENTIFIER }
+
+transform = { "transform-" ~ (("t-" ~ VEC3) | ("r-" ~ VEC4)) | (("s-") ~ VEC3) }
+
+global_transform = { "global-transform-" ~ IDENTIFIER }
+
+visibility = { "visibility-" ~ ("visible" | "hidden" | "inherit") }
+
+inherited_visibility = { "inherited-visibility-" ~ ("true" | "false") }
+
+view_visibility = { "view-visibility-" ~ ("visible" | "hidden") }
+
+z_index = { "z-" ~ (DIGIT | ("global-" ~ DIGIT)) }
+
+COLOR = { COLOR_NAME ~ "-" ~ COLOR_VALUE }
+
+COLOR_NAME = {
+    "slate"
+  | "gray"
+  | "zinc"
+  | "neutral"
+  | "stone"
+  | "red"
+  | "orange"
+  | "amber"
+  | "yellow"
+  | "lime"
+  | "green"
+  | "emerald"
+  | "teal"
+  | "cyan"
+  | "sky"
+  | "blue"
+  | "indigo"
+  | "violet"
+  | "purple"
+  | "fuchsia"
+  | "pink"
+  | "rose"
+}
+
+COLOR_VALUE = { "50" | "100" | "200" | "300" | "400" | "500" | "600" | "700" | "800" | "900" }
+
+UNIT   = _{ "px" | "%" | "vw" | "vh" | "vmin" | "vmax" }
+NUMBER = @{ ASCII_DIGIT+ }
+
+PREDEFINED_VALUES = _{
+    "1px"
+  | "2px"
+  | "4px"
+  | "8px"
+  | "0px"
+  | "0%"
+  | "50%"
+  | "100%"
+  | "1vw"
+  | "2vw"
+  | "4vw"
+  | "0vw"
+  | "1vh"
+  | "2vh"
+  | "4vh"
+  | "0vh"
+  | "1vmin"
+  | "2vmin"
+  | "4vmin"
+  | "0vmin"
+  | "1vmax"
+  | "2vmax"
+  | "4vmax"
+  | "0vmax"
+}
+
+DIGIT           = @{ (ASCII_DIGIT)+ }
+DECIMAL         = @{ DIGIT ~ "." ~ DIGIT }
+VALUE           = @{ ( DECIMAL | DIGIT ) ~ UNIT }
+VEC2            = @{ (DECIMAL | DIGIT) ~ "_" ~ (DECIMAL | DIGIT) }
+VEC3            = @{ VEC2 ~ "_" ~ (DECIMAL | DIGIT) }
+VEC4            = @{ VEC2 ~ "_" ~ VEC2 }
+BVEC4           = @{ VALUE ~ "_" ~ VALUE ~ "_" ~ VALUE ~ "_" ~ VALUE }
+DISPLAY         = _{ "flex" | "grid" | "none" }
+POSITION_TYPE   = _{ "relative" | "absolute" }
+OVERFLOW        = _{ "visible" | "clip" | "clip-x" | "clip-y" }
+DIRECTION       = _{ "ltr" | "rtl" | "inherit" }
+ALIGN_ITEMS     = _{ "start" | "center" | "end" | "stretch" | "flex-start" | "flex-end" | "baseline" | "default" }
+JUSTIFY_ITEMS   = _{ "start" | "center" | "end" | "stretch" | "baseline" | "default" }
+ALIGN_SELF      = _{ "start" | "center" | "end" | "stretch" | "flex-start" | "flex-end" | "baseline" | "auto" }
+JUSTIFY_SELF    = _{ "start" | "end" | "stretch" | "center" | "baseline" | "auto" }
+ALIGN_CONTENT   = _{ "start" | "end" | "stretch" | "center" | "flex-start" | "flex-end" | "between" | "evenly" | "around" | "default" }
+JUSTIFY_CONTENT = _{ "start" | "end" | "stretch" | "center" | "flex-start" | "flex-end" | "between" | "evenly" | "around" | "default" }
+FLEX_DIRECTION  = _{ "row" | "col" | "row-reverse" | "col-reverse" }
+FLEX_WRAP       = _{ "wrap" | "nowrap" | "wrap-reverse" }
+GRID_AUTO_FLOW  = _{ "row" | "col" | "col-dense" | "row-dense" }
+
+GRID_TEMPLATE_ROWS    = @{ VALUE ~ ("," ~ VALUE)* }
+GRID_TEMPLATE_COLUMNS = @{ VALUE ~ ("," ~ VALUE)* }
+GRID_AUTO_ROWS        = @{ VALUE ~ ("," ~ VALUE)* }
+GRID_AUTO_COLUMNS     = @{ VALUE ~ ("," ~ VALUE)* }
+GRID_PLACEMENT        = @{ VALUE ~ (" " ~ VALUE)? }
+
+display_style               = { "display-" ~ DISPLAY }
+position_type_style         = { "position-" ~ POSITION_TYPE }
+overflow_style              = { "overflow-" ~ OVERFLOW }
+direction_style             = { "direction-" ~ DIRECTION }
+left_style                  = { "left-" ~ VALUE }
+right_style                 = { "right-" ~ VALUE }
+top_style                   = { "top-" ~ VALUE }
+bottom_style                = { "bottom-" ~ VALUE }
+width_style                 = { "width-" ~ VALUE }
+height_style                = { "height-" ~ VALUE }
+min_width_style             = { "min_width-" ~ VALUE }
+min_height_style            = { "min_height-" ~ VALUE }
+max_width_style             = { "max_width-" ~ VALUE }
+max_height_style            = { "max_height-" ~ VALUE }
+aspect_ratio_style          = { "aspect-" ~ (DECIMAL | DIGIT) }
+align_items_style           = { "align_items-" ~ ALIGN_ITEMS }
+justify_items_style         = { "justify_items-" ~ JUSTIFY_ITEMS }
+align_self_style            = { "align_self-" ~ ALIGN_SELF }
+justify_self_style          = { "justify_self-" ~ JUSTIFY_SELF }
+align_content_style         = { "align_content-" ~ ALIGN_CONTENT }
+justify_content_style       = { "justify_content-" ~ JUSTIFY_CONTENT }
+margin_style                = { "margin-" ~ (BVEC4 | VALUE) }
+padding_style               = { "padding-" ~ (BVEC4 | VALUE) }
+border_style                = { "border-" ~ (BVEC4 | VALUE) }
+flex_direction_style        = { "flex_direction-" ~ FLEX_DIRECTION }
+flex_wrap_style             = { "flex_wrap-" ~ FLEX_WRAP }
+flex_grow_style             = { "flex_grow-" ~ (DECIMAL | DIGIT) }
+flex_shrink_style           = { "flex_shrink-" ~ (DECIMAL | DIGIT) }
+flex_basis_style            = { "flex_basis-" ~ VALUE }
+row_gap_style               = { "row_gap-" ~ VALUE }
+column_gap_style            = { "column_gap-" ~ VALUE }
+grid_auto_flow_style        = { "grid_auto_flow-" ~ GRID_AUTO_FLOW }
+grid_template_rows_style    = { "grid_template_rows-" ~ GRID_TEMPLATE_ROWS }
+grid_template_columns_style = { "grid_template_columns-" ~ GRID_TEMPLATE_COLUMNS }
+grid_auto_rows_style        = { "grid_auto_rows-" ~ GRID_AUTO_ROWS }
+grid_auto_columns_style     = { "grid_auto_columns-" ~ GRID_AUTO_COLUMNS }
+grid_row_style              = { "grid_row-" ~ GRID_PLACEMENT }
+grid_column_style           = { "grid_column-" ~ GRID_PLACEMENT }
+
+style = _{
+    display_style
+  | position_type_style
+  | overflow_style
+  | direction_style
+  | left_style
+  | right_style
+  | top_style
+  | bottom_style
+  | width_style
+  | height_style
+  | min_width_style
+  | min_height_style
+  | max_width_style
+  | max_height_style
+  | aspect_ratio_style
+  | align_items_style
+  | justify_items_style
+  | align_self_style
+  | justify_self_style
+  | align_content_style
+  | justify_content_style
+  | margin_style
+  | padding_style
+  | border_style
+  | flex_direction_style
+  | flex_wrap_style
+  | flex_grow_style
+  | flex_shrink_style
+  | flex_basis_style
+  | row_gap_style
+  | column_gap_style
+  | grid_auto_flow_style
+  | grid_template_rows_style
+  | grid_template_columns_style
+  | grid_auto_rows_style
+  | grid_auto_columns_style
+  | grid_row_style
+  | grid_column_style
+}
+
+IDENTIFIER = @{ ASCII_ALPHANUMERIC+ }
