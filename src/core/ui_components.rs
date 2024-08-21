@@ -1,4 +1,4 @@
-use bevy::prelude::Component;
+use bevy::{math::Vec2, prelude::Component};
 
 #[derive(Component, Clone, Debug)]
 pub struct UiComponent {
@@ -13,4 +13,12 @@ impl Default for UiComponent {
             children: Vec::new(),
         }
     }
+}
+
+#[derive(Component, Clone, Debug)]
+pub struct Draggable;
+
+#[derive(Component, Clone, Debug)]
+pub struct Dragging {
+    pub offset: Vec2,
 }

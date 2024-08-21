@@ -11,7 +11,7 @@ pub trait WithChildren {
     fn children<'a>(self, child_ids: impl IntoIterator<Item = &'a str>) -> Self;
 }
 
-#[derive(Bundle, Debug, Clone)]
+#[derive(Bundle, Debug, Clone, Default)]
 pub struct SButtonBundle {
     pub ui_component: UiComponent,
     /// Describes the logical size of the node
@@ -49,27 +49,7 @@ impl WithChildren for SButtonBundle {
     }
 }
 
-impl Default for SButtonBundle {
-    fn default() -> Self {
-        Self {
-            ui_component: Default::default(),
-            node: Default::default(),
-            tag: Default::default(),
-            style: Default::default(),
-        }
-    }
-}
-
-pub struct NoOpSystem;
-
-// impl System for NoOpSystem {
-//     type In = ();
-//     type Out = ();
-
-//     fn run(&mut self, _input: Self::In) -> Self::Out {}
-// }
-
-#[derive(Bundle, Clone, Debug)]
+#[derive(Bundle, Clone, Debug, Default)]
 pub struct SContainerBundle {
     pub ui_component: UiComponent,
     /// Describes the logical size of the node
@@ -104,16 +84,6 @@ impl WithChildren for SContainerBundle {
     }
 }
 
-impl Default for SContainerBundle {
-    fn default() -> Self {
-        Self {
-            ui_component: Default::default(),
-            node: Default::default(),
-            style: Default::default(),
-        }
-    }
-}
-
 #[derive(Bundle, Debug, Default)]
 pub struct STextBundle {
     pub ui_component: UiComponent,
@@ -139,17 +109,11 @@ impl STextBundle {
     pub fn id(mut self, id: &str) -> Self {
         self.ui_component.id = id.to_string();
         self
-        // Self {
-        //     ui_component: UiComponent {
-        //         id: id.to_string(),
-        //         children: Vec::new(),
-        //     },
-        //     ..Default::default()
-        // }
     }
 }
 
 // #[cfg(feature = "bevy_text")]
+//standard bevy text implementations
 impl STextBundle {
     /// Create a [`TextBundle`] from a single section.
     ///

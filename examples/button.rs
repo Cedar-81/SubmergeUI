@@ -5,16 +5,19 @@ use bevy::{
 use bevy_submerge_ui::{
     core::{
         style_bundles::{ButtonStyleBundle, ContainerStyleBundle, SubmergeStyle},
-        ui_bundles::{SButtonBundle, SContainerBundle, WithChildren},
+        ui_bundles::{SButtonBundle, SContainerBundle, STextBundle, WithChildren},
+        ui_components::Draggable,
         ui_plugin::SubmergeUi,
     },
-    utils::{border_radius::SubmergeBR, colors::SubmergeColors},
+    r#box::box_plugin::SubmergeBox,
+    utils::{border_radius::SubmergeBR, colors::SubmergeColors, font_size::SubmergeText},
 };
 
 fn main() {
     App::new()
-        // .add_plugins(DefaultPlugins)
+        .add_plugins(DefaultPlugins)
         .add_plugins(SubmergeUi)
+        // .add_plugins(SubmergeBox)
         .add_systems(Startup, setup)
         .run();
 }
@@ -61,7 +64,7 @@ fn _sys(query: Query<&Style>) {
 //     });
 // }
 // asset_server: Res<AssetServer>
-fn setup(mut commands: Commands) {
+fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
     // let a = NORMAL_BUTTON.into();
     let s_button_style: ButtonStyleBundle = ButtonStyleBundle {
         style: Style {
@@ -70,6 +73,7 @@ fn setup(mut commands: Commands) {
             border: UiRect::all(Val::Px(5.0)),
             // horizontally center child text
             justify_content: JustifyContent::Center,
+
             // vertically center child text
             align_items: AlignItems::Center,
             padding: UiRect::all(Val::Px(15.0)),
@@ -89,11 +93,11 @@ fn setup(mut commands: Commands) {
 
     // println!("button: {:?}", button_style);
 
-    // let text_style = TextStyle {
-    //     font: asset_server.load("fonts/OpenSans-SemiBold.ttf"),
-    //     font_size: SubmergeText::text(SubmergeText::LG),
-    //     color: SubmergeColors::color(SubmergeColors::BLACK).into(),
-    // };
+    let text_style = TextStyle {
+        font: asset_server.load("fonts/OpenSans-SemiBold.ttf"),
+        font_size: SubmergeText::text(SubmergeText::LG),
+        color: SubmergeColors::color(SubmergeColors::BLACK).into(),
+    };
 
     let _container_style = ContainerStyleBundle {
         style: Style {
@@ -126,13 +130,16 @@ fn setup(mut commands: Commands) {
     );
 
     commands.spawn(SButtonBundle::new("play_button", button_style).child("play_button_txt"));
-    commands.spawn(
-        SButtonBundle::new("another_play_button", s_button_style).child("another_play_button_txt"),
-    );
+    commands
+        .spawn(
+            SButtonBundle::new("another_play_button", s_button_style)
+                .child("another_play_button_txt"),
+        )
+        .insert(Draggable);
 
-    // commands
-    //     .spawn(STextBundle::from_section("First Button", text_style.clone()).id("play_button_txt"));
-    // commands.spawn(
-    //     STextBundle::from_section("Another Button", text_style).id("another_play_button_txt"),
-    // );
+    commands
+        .spawn(STextBundle::from_section("First Button", text_style.clone()).id("play_button_txt"));
+    commands.spawn(
+        STextBundle::from_section("Another Button", text_style).id("another_play_button_txt"),
+    );
 }

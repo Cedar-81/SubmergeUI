@@ -6,6 +6,6 @@ pub struct SubmergeUi;
 
 impl Plugin for SubmergeUi {
     fn build(&self, app: &mut App) {
-        app.add_systems(Update, resolve_ui_hierarchy);
+        app.add_systems(Update, (resolve_ui_hierarchy));
     }
 }

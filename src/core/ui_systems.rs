@@ -1,6 +1,6 @@
-use bevy::prelude::{BuildChildren, Commands, Entity, Query};
+use bevy::prelude::*;
 
-use super::ui_components::UiComponent;
+use super::ui_components::{Draggable, Dragging, UiComponent};
 
 pub fn resolve_ui_hierarchy(mut commands: Commands, query: Query<(Entity, &UiComponent)>) {
     let mut id_map = std::collections::HashMap::new();
