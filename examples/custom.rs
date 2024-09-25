@@ -12,8 +12,11 @@ use bevy_submerge_ui::{
     r#box::box_plugin::SubmergeBox,
     utils::{border_radius::SubmergeBR, colors::SubmergeColors, font_size::SubmergeText},
     widgets::{
+        input::InputBundle,
         slider::SliderBundle,
-        style_bundles::{SliderComponentsStyle, SliderStyleBundle},
+        style_bundles::{
+            InputComponentStyle, InputStyleBundle, SliderComponentsStyle, SliderStyleBundle,
+        },
         widget_plugin::SubmergeWidgets,
     },
 };
@@ -90,6 +93,8 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
         ..default()
     };
 
+    let input_style = InputStyleBundle { ..default() };
+
     commands.spawn(
         SContainerBundle::new(
             "main_container",
@@ -104,13 +109,14 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
                 ..default()
             },
         )
-        .children(["slider", "slider2"]),
+        .children(["slider", "slider2", "input1"]),
     );
 
     commands.spawn(SliderBundle::new("slider", slider_style));
     commands.spawn(SliderBundle::new("slider2", slider_style_2));
-    commands.spawn(SliderBundle::new(
-        "slider3",
-        SliderStyleBundle { ..default() },
-    )); //todo: Modify default style for SliderStyleBundle
+    // commands.spawn(SliderBundle::new(
+    //     "slider3",
+    //     SliderStyleBundle { ..default() },
+    // )); //todo: Modify default style for SliderStyleBundle
+    commands.spawn(InputBundle::new("input1", input_style, "My first text"));
 }

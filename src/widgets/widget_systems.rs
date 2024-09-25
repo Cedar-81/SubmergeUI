@@ -1,21 +1,31 @@
 use bevy::{
-    ecs::entity,
+    ecs::{entity, query},
+    gizmos::config,
+    input::{
+        keyboard::{Key, KeyboardInput},
+        ButtonState,
+    },
     prelude::*,
+    reflect::List,
     transform::{commands, components},
 };
 
 use crate::{
     core::ui_components::{Draggable, Dragging},
+    utils::colors::SubmergeColors,
     widgets::widget_components::Observing,
 };
 
 use super::{
+    input::{Input, InputCaretBundle, InputTextBundle},
     slider::{Handle, Slide, SlideBundle, Slider},
-    style_bundles::{SliderComponentsStyle, SliderStyleBundle},
+    style_bundles::{
+        InputComponentStyle, InputStyleBundle, SliderComponentsStyle, SliderStyleBundle,
+    },
     widget_components::SpawnWidgetComponent,
 };
 
-pub fn spawn_widget_components(
+pub fn spawn_slider_widget_components(
     mut commands: Commands,
     query: Query<(Entity, &SliderComponentsStyle, &Slider)>,
     mut acitve_widget: ResMut<SpawnWidgetComponent>,
@@ -128,6 +138,114 @@ pub fn update_slider_position(
                     }
                 }
             }
+        }
+    }
+}
+
+#[derive(Resource)]
+pub struct CaretBlinkTimerConfig {
+    pub timer: Timer,
+}
+
+pub fn spawn_input_text_widget_components(
+    mut commands: Commands,
+    mut query: Query<(
+        Entity,
+        &InputComponentStyle,
+        &mut Input,
+        Option<&mut Children>,
+    )>,
+    mut text_query: Query<&mut Text>,
+    mut key_events: EventReader<KeyboardInput>,
+    keyboard_input: Res<ButtonInput<KeyCode>>,
+    time: Res<Time>,
+    asset_server: Res<AssetServer>,
+    mut prev_input_text: Local<Option<Entity>>,
+    mut prev_caret: Local<Option<Entity>>,
+    mut show: Local<bool>,
+    mut config: ResMut<CaretBlinkTimerConfig>,
+) {
+    config.timer.tick(time.delta());
+
+    if config.timer.finished() {
+        // Toggle show every 500 milliseconds
+        *show = !*show;
+    }
+
+    for (entity, input_text_style, mut input, maybe_children) in query.iter_mut() {
+        // Handle the case where there are no children initially
+        let mut input_text_entity = *prev_input_text;
+        let caret_entity = *prev_caret;
+
+        if maybe_children.is_none() {
+            // Initialize placeholder if children don't exist
+            let style = TextStyle {
+                font: asset_server.load("fonts/OpenSans-SemiBold.ttf"),
+                font_size: input_text_style.font_size,
+                color: input_text_style.color,
+            };
+
+            let input_text = commands
+                .spawn(InputTextBundle::from_section(
+                    input.placeholder.clone(),
+                    style,
+                ))
+                .id();
+            *prev_input_text = Some(input_text);
+            commands.entity(entity).add_child(input_text);
+            input_text_entity = Some(input_text);
+        }
+
+        // Handle input text entity update
+        if let Some(input_text_entity) = input_text_entity {
+            // Safely attempt to get the `Text` component
+            if let Ok(mut text) = text_query.get_mut(input_text_entity) {
+                for event in key_events.read() {
+                    // Only check for characters when the key is pressed
+                    if event.state == ButtonState::Released {
+                        continue;
+                    }
+
+                    if event.state == ButtonState::Pressed && event.key_code == KeyCode::Backspace {
+                        input.content.pop();
+                    }
+
+                    if let Key::Character(character) = &event.logical_key {
+                        input.content.push_str(character.as_str());
+                    }
+
+                    // Update text content in place
+                    text.sections[0].value = input.content.clone();
+                }
+            }
+        }
+
+        // Despawn caret if the timer is finished and previous caret entity exists
+        if let Some(caret) = *prev_caret {
+            if *show == true {
+                commands.entity(caret).despawn();
+                *prev_caret = None;
+            }
+        }
+
+        // Spawn new caret if show is false and no caret exists
+        if *show == false && caret_entity.is_none() {
+            let caret_style = InputStyleBundle {
+                style: Style {
+                    height: input_text_style.caret_height,
+                    width: input_text_style.caret_width,
+                    ..Default::default()
+                },
+                background_color: BackgroundColor(input_text_style.caret_color),
+                border_radius: BorderRadius::all(Val::Px(5.)),
+                ..Default::default()
+            };
+
+            let caret = commands
+                .spawn(InputCaretBundle::new("input_caret", caret_style))
+                .id();
+            *prev_caret = Some(caret);
+            commands.entity(entity).add_child(caret);
         }
     }
 }
