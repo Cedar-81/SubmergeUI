@@ -8,29 +8,18 @@ use bevy_submerge_ui::{
         ui_bundles::{SButtonBundle, SContainerBundle, WithChildren},
         ui_plugin::SubmergeUi,
     },
-    utils::{border_radius::SubmergeBR, colors::SubmergeColors},
+    r#box::box_plugin::SubmergeBox,
+    utils::{border_radius::SubmergeBR, colors::SubmergeColors, font_size::SubmergeText},
 };
 
 fn main() {
     App::new()
         // .add_plugins(DefaultPlugins)
         .add_plugins(SubmergeUi)
+        // .add_plugins(SubmergeBox)
         .add_systems(Startup, setup)
         .run();
 }
-
-// struct MyStruct<T: System<In = (), Out = ()>> {
-//     some_value: T,
-// }
-
-// impl<T> MyStruct<T>
-// where
-//     T: System<In = (), Out = ()>,
-// {
-//     fn new(system: T) -> Self {
-//         MyStruct { some_value: system }
-//     }
-// }
 
 fn _sys(query: Query<&Style>) {
     for a in &query {
@@ -61,12 +50,10 @@ fn _sys(query: Query<&Style>) {
 //     });
 // }
 // asset_server: Res<AssetServer>
-fn setup(mut commands: Commands) {
+fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
     // let a = NORMAL_BUTTON.into();
     let s_button_style: ButtonStyleBundle = ButtonStyleBundle {
         style: Style {
-            // width: Val::Px(150.0),
-            // height: Val::Px(65.0),
             border: UiRect::all(Val::Px(5.0)),
             // horizontally center child text
             justify_content: JustifyContent::Center,
@@ -89,11 +76,11 @@ fn setup(mut commands: Commands) {
 
     // println!("button: {:?}", button_style);
 
-    // let text_style = TextStyle {
-    //     font: asset_server.load("fonts/OpenSans-SemiBold.ttf"),
-    //     font_size: SubmergeText::text(SubmergeText::LG),
-    //     color: SubmergeColors::color(SubmergeColors::BLACK).into(),
-    // };
+    let text_style = TextStyle {
+        font: asset_server.load("fonts/OpenSans-SemiBold.ttf"),
+        font_size: SubmergeText::text(SubmergeText::LG),
+        color: SubmergeColors::color(SubmergeColors::BLACK).into(),
+    };
 
     let _container_style = ContainerStyleBundle {
         style: Style {

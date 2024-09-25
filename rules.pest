@@ -1,4 +1,4 @@
-style_definition = _{ ((style | property) ~ " ")+ ~ (style | property) }
+style_definition = _{ ((style | property) ~ " ")* ~ (style | property) }
 
 property = _{
     border_radius
@@ -40,13 +40,13 @@ image = { "image-" ~ IDENTIFIER }
 
 transform = { "transform-" ~ (("t-" ~ VEC3) | ("r-" ~ VEC4)) | (("s-") ~ VEC3) }
 
-global_transform = { "global-transform-" ~ IDENTIFIER }
+global_transform = { "global_transform-" ~ IDENTIFIER }
 
 visibility = { "visibility-" ~ ("visible" | "hidden" | "inherit") }
 
-inherited_visibility = { "inherited-visibility-" ~ ("true" | "false") }
+inherited_visibility = { "inherited_visibility-" ~ ("true" | "false") }
 
-view_visibility = { "view-visibility-" ~ ("visible" | "hidden") }
+view_visibility = { "view_visibility-" ~ ("visible" | "hidden") }
 
 z_index = { "z-" ~ (DIGIT | ("global-" ~ DIGIT)) }
 
