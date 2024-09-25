@@ -1,10 +1,27 @@
 [package]
 name = "bevy_submerge_ui"
 version = "0.1.0"
+authors = ["Divinewisdom Ugwuanyi <divinewisdom.dev@gmail.com>"]
 edition = "2021"
+description = "A ui plugin with tailwind like capabilities for bevy."
+license = "MIT"
+repository = "https://github.com/Cedar-81/SubmergeUI"
+# homepage = "https://github.com/Cedar-81/SubmergeUI"                   
+# documentation = "https://docs.rs/your_crate_name"        
+readme = "https://github.com/Cedar-81/SubmergeUI/blob/main/README.md"
+keywords = [
+    "bevy",
+    "bevy_ecs",
+    "tailwind",
+    "bevy_ui",
+    "submerge_ui",
+    "submerge",
+]
+categories = ["game development"]
+
 
 [dependencies]
-bevy = { version = "0.14.1", features = ["bevy_text"] }
+bevy = { version = "0.14.2", features = ["bevy_text"] }
 pest = "2.7.11"
 pest_derive = "2.7.11"
 regex = "1.10.6"
