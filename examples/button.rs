@@ -13,17 +13,9 @@ use bevy_submerge_ui::{
 
 fn main() {
     App::new()
-        // .add_plugins(DefaultPlugins)
         .add_plugins(SubmergeUi)
-        // .add_plugins(SubmergeBox)
         .add_systems(Startup, setup)
         .run();
-}
-
-fn _sys(query: Query<&Style>) {
-    for a in &query {
-        println!("a: {:?}", a);
-    }
 }
 
 fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
