@@ -8,7 +8,7 @@ license = "MIT"
 repository = "https://github.com/Cedar-81/SubmergeUI"
 # homepage = "https://github.com/Cedar-81/SubmergeUI"                   
 # documentation = "https://docs.rs/your_crate_name"        
-readme = "https://github.com/Cedar-81/SubmergeUI/blob/main/DOCUMENTATION.md"
+readme = "DOCUMENTATION.md"
 keywords = [
     "bevy",
     "bevy_ecs",
