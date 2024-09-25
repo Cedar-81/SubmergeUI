@@ -1,5 +1,3 @@
----
-
 # SubmergeUI
 
 **SubmergeUI** is a simple, flexible, and modular Rust UI library built on top of Bevy’s ECS framework. Designed for ease of use, it allows developers to create and style UI components using a Tailwind-like syntax. The goal of SubmergeUI is to make UI development straightforward and scalable in Rust.
