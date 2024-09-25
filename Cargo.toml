@@ -9,15 +9,8 @@ repository = "https://github.com/Cedar-81/SubmergeUI"
 # homepage = "https://github.com/Cedar-81/SubmergeUI"                   
 # documentation = "https://docs.rs/your_crate_name"        
 readme = "DOCUMENTATION.md"
-keywords = [
-    "bevy",
-    "bevy_ecs",
-    "tailwind",
-    "bevy_ui",
-    "submerge_ui",
-    "submerge",
-]
-categories = ["game development"]
+keywords = ["bevy", "bevy_ecs", "tailwind", "bevy_ui", "submerge_ui"]
+categories = ["GUI", "Game engines", "Games", "Graphics"]
 
 
 [dependencies]
