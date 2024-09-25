@@ -362,7 +362,3 @@ For full API documentation, usage details, and more examples, refer to the [Subm
 ## License
 
 This project is licensed under the MIT License.
-
----
-
-This version highlights the simplicity and modularity of SubmergeUI, making it an attractive option for developers looking for an easy-to-use, flexible UI system for Bevy projects. Let me know if you'd like any further adjustments!
