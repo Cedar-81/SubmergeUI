@@ -9,7 +9,6 @@ use bevy_submerge_ui::{
         ui_components::Draggable,
         ui_plugin::SubmergeUi,
     },
-    r#box::box_plugin::SubmergeBox,
     utils::{border_radius::SubmergeBR, colors::SubmergeColors, font_size::SubmergeText},
 };
 
@@ -17,59 +16,20 @@ fn main() {
     App::new()
         .add_plugins(DefaultPlugins)
         .add_plugins(SubmergeUi)
-        // .add_plugins(SubmergeBox)
         .add_systems(Startup, setup)
         .run();
 }
-
-// struct MyStruct<T: System<In = (), Out = ()>> {
-//     some_value: T,
-// }
-
-// impl<T> MyStruct<T>
-// where
-//     T: System<In = (), Out = ()>,
-// {
-//     fn new(system: T) -> Self {
-//         MyStruct { some_value: system }
-//     }
-// }
 
 fn _sys(query: Query<&Style>) {
     for a in &query {
         println!("a: {:?}", a);
     }
 }
-// fn after_setup(mut commands: Commands) {
-//     // let a = sys.();
 
-//     let a = MyStruct::new(sys);
-
-//     let mut system = IntoSystem::into_system(sys);
-//     // a.add_system(system.clone());
-
-//     commands.add(move |world: &mut World| {
-//         // do whatever you want with `world` here
-
-//         // note: it's a closure, you can use variables from
-//         // the parent scope/function
-//         let id = world.register_system(system.clone());
-//         eprintln!("System id: {:?}", id);
-
-//         let new_stuff = IntoSystem::into_system(a);
-//         world.run_system_once(new_stuff);
-
-//         eprintln!("Now to run the world");
-//         world.run_system_once(&system);
-//     });
-// }
-// asset_server: Res<AssetServer>
 fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
     // let a = NORMAL_BUTTON.into();
     let s_button_style: ButtonStyleBundle = ButtonStyleBundle {
         style: Style {
-            // width: Val::Px(150.0),
-            // height: Val::Px(65.0),
             border: UiRect::all(Val::Px(5.0)),
             // horizontally center child text
             justify_content: JustifyContent::Center,
@@ -88,10 +48,6 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
     let button_style = ButtonStyleBundle::apply_style(
         "border-5px justify_content-center align_items-center padding-15px border_color-white rounded-50% bg-red-100",
     );
-
-    // button_style.border_color = BorderColor(Color::BLACK);
-
-    // println!("button: {:?}", button_style);
 
     let text_style = TextStyle {
         font: asset_server.load("fonts/OpenSans-SemiBold.ttf"),
