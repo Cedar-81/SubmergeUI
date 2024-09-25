@@ -5,7 +5,7 @@ use bevy::{
 use bevy_submerge_ui::{
     core::{
         style_bundles::{ButtonStyleBundle, ContainerStyleBundle, SubmergeStyle},
-        ui_bundles::{SButtonBundle, SContainerBundle, WithChildren},
+        ui_bundles::{SButtonBundle, SContainerBundle, STextBundle, WithChildren},
         ui_plugin::SubmergeUi,
     },
     utils::{border_radius::SubmergeBR, colors::SubmergeColors, font_size::SubmergeText},
@@ -13,17 +13,26 @@ use bevy_submerge_ui::{
 
 fn main() {
     App::new()
+        .add_plugins(DefaultPlugins)
         .add_plugins(SubmergeUi)
         .add_systems(Startup, setup)
         .run();
 }
 
+fn _sys(query: Query<&Style>) {
+    for a in &query {
+        println!("a: {:?}", a);
+    }
+}
+
 fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
+    // let a = NORMAL_BUTTON.into();
     let s_button_style: ButtonStyleBundle = ButtonStyleBundle {
         style: Style {
             border: UiRect::all(Val::Px(5.0)),
             // horizontally center child text
             justify_content: JustifyContent::Center,
+
             // vertically center child text
             align_items: AlignItems::Center,
             padding: UiRect::all(Val::Px(15.0)),
@@ -78,5 +87,11 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
     commands.spawn(SButtonBundle::new("play_button", button_style).child("play_button_txt"));
     commands.spawn(
         SButtonBundle::new("another_play_button", s_button_style).child("another_play_button_txt"),
+    );
+
+    commands
+        .spawn(STextBundle::from_section("First Button", text_style.clone()).id("play_button_txt"));
+    commands.spawn(
+        STextBundle::from_section("Another Button", text_style).id("another_play_button_txt"),
     );
 }
