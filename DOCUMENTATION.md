@@ -172,65 +172,6 @@ let button_style = ButtonStyleBundle::apply_style(
 
 ```
 
-## Styling in SubmergeUI
-
-The style definition uses a Tailwind-like system where each property or style is defined by a string and then applied to components. Here's a breakdown of the available style properties(check out the [pest](https://github.com/Cedar-81/SubmergeUI/blob/main/rules.pest) file for a more in-depth insight):
-
-| **Style**               | **Description**                                                               | **Example**                                              |
-| ----------------------- | ----------------------------------------------------------------------------- | -------------------------------------------------------- |
-| `border_color`          | Specifies the border color of an element.                                     | `border_color-red`                                       |
-| `border_radius`         | Defines the border radius for rounded corners.                                | `rounded-lg`                                             |
-| `background_color`      | Sets the background color of an element.                                      | `bg-blue-500`                                            |
-| `text_color`            | Specifies the text color of an element.                                       | `text_color-white`                                       |
-| `text_size`             | Sets the size of the text.                                                    | `text-lg`                                                |
-| `interaction`           | Specifies the interaction state of an element.                                | `interaction-hovered`                                    |
-| `focus_policy`          | Defines how an element should respond to focus events.                        | `focus-none`                                             |
-| `image`                 | Specifies an image for the element.                                           | `image-my_image` _(unimplemented)_                       |
-| `transform`             | Applies a transformation such as translation, rotation, or scaling.           | `transform-r-45_0.5_0`                                   |
-| `global_transform`      | Specifies a global transformation for the element.                            | `global_transform-my_global_transform` _(unimplemented)_ |
-| `visibility`            | Controls the visibility of an element.                                        | `visibility-hidden`                                      |
-| `inherited_visibility`  | Indicates whether an element inherits visibility from its parent.             | `inherited_visibility-true`                              |
-| `view_visibility`       | Controls the visibility of the view.                                          | `view_visibility-visible`                                |
-| `z_index`               | Sets the stack order of an element.                                           | `z-10`                                                   |
-| `display`               | Defines the display style of the element (e.g., flex, grid, none).            | `display-flex`                                           |
-| `position`              | Specifies the positioning type of an element (e.g., relative, absolute).      | `position-absolute`                                      |
-| `overflow`              | Controls how content that overflows the element's box is handled.             | `overflow-clip`                                          |
-| `direction`             | Defines the text direction (e.g., left-to-right, right-to-left).              | `direction-rtl`                                          |
-| `left`                  | Sets the left position of an absolutely positioned element.                   | `left-10px`                                              |
-| `right`                 | Sets the right position of an absolutely positioned element.                  | `right-0px`                                              |
-| `top`                   | Sets the top position of an absolutely positioned element.                    | `top-20px`                                               |
-| `bottom`                | Sets the bottom position of an absolutely positioned element.                 | `bottom-30px`                                            |
-| `width`                 | Sets the width of the element.                                                | `width-100%`                                             |
-| `height`                | Sets the height of the element.                                               | `height-50vh`                                            |
-| `min_width`             | Sets the minimum width of the element.                                        | `min_width-300px`                                        |
-| `min_height`            | Sets the minimum height of the element.                                       | `min_height-200px`                                       |
-| `max_width`             | Sets the maximum width of the element.                                        | `max_width-500px`                                        |
-| `max_height`            | Sets the maximum height of the element.                                       | `max_height-400px`                                       |
-| `aspect_ratio`          | Defines the aspect ratio of the element.                                      | `aspect-16_9`                                            |
-| `align_items`           | Sets the alignment of items within a flex or grid container.                  | `align_items-center`                                     |
-| `justify_items`         | Sets the justification of items within a flex or grid container.              | `justify_items-space-between`                            |
-| `align_self`            | Overrides the default alignment for a specific item.                          | `align_self-end`                                         |
-| `justify_self`          | Overrides the default justification for a specific item.                      | `justify_self-center`                                    |
-| `align_content`         | Aligns the content within a flex or grid container when there is extra space. | `align_content-around`                                   |
-| `justify_content`       | Justifies the content within a flex or grid container.                        | `justify_content-evenly`                                 |
-| `margin`                | Sets the margin around the element.                                           | `margin-10px`                                            |
-| `padding`               | Sets the padding within the element.                                          | `padding-15px`                                           |
-| `border`                | Sets the border size around the element.                                      | `border-2px`                                             |
-| `flex_direction`        | Defines the direction of flex items.                                          | `flex_direction-row`                                     |
-| `flex_wrap`             | Controls whether flex items should wrap onto multiple lines.                  | `flex_wrap-wrap`                                         |
-| `flex_grow`             | Specifies how much a flex item can grow relative to the rest.                 | `flex_grow-1`                                            |
-| `flex_shrink`           | Specifies how much a flex item can shrink relative to the rest.               | `flex_shrink-0`                                          |
-| `flex_basis`            | Defines the default size of a flex item before space is distributed.          | `flex_basis-200px`                                       |
-| `row_gap`               | Sets the gap between rows in a grid or flex layout.                           | `row_gap-20px`                                           |
-| `column_gap`            | Sets the gap between columns in a grid or flex layout.                        | `column_gap-10px`                                        |
-| `grid_auto_flow`        | Defines how auto-placed items in a grid layout are flowed.                    | `grid_auto_flow-col` _(unimplemented)_                   |
-| `grid_template_rows`    | Defines the row sizes in a grid layout.                                       | `grid_template_rows-100px,200px` _(unimplemented)_       |
-| `grid_template_columns` | Defines the column sizes in a grid layout.                                    | `grid_template_columns-50%,25%` _(unimplemented)_        |
-| `grid_auto_rows`        | Sets the size of automatically placed rows.                                   | `grid_auto_rows-100px,200px` _(unimplemented)_           |
-| `grid_auto_columns`     | Sets the size of automatically placed columns.                                | `grid_auto_columns-50%,25%` _(unimplemented)_            |
-| `grid_row`              | Places an item in a specific row of a grid layout.                            | `grid_row-1 2` _(unimplemented)_                         |
-| `grid_column`           | Places an item in a specific column of a grid layout.                         | `grid_column-1 2` _(unimplemented)_                      |
-
 ## Utilities
 
 Submerge provides a set of utility enums that simplify the styling of UI components. These include `SubmergeText` for font sizes, `SubmergeColors` for color definitions, and `SubmergeBR` for border radius settings. Each of these utilities follows the conventions used in Tailwind CSS, making them intuitive to use for developers familiar with that framework.
@@ -345,13 +286,70 @@ let button_style: ButtonStyleBundle = ButtonStyleBundle {
 
 These utilities provide a flexible and straightforward way to handle common styling tasks in your UI components, promoting consistency and ease of use. For further details and examples, please refer to the documentation or the source code.
 
----
+## Styling in SubmergeUI
 
-Feel free to adjust the wording or details to better fit your project's style!
+The style definition uses a Tailwind-like system where each property or style is defined by a string and then applied to components. Here's a breakdown of the available style properties(check out the [pest](https://github.com/Cedar-81/SubmergeUI/blob/main/rules.pest) file for a more in-depth insight):
+
+| **Style**               | **Description**                                                               | **Example**                                              |
+| ----------------------- | ----------------------------------------------------------------------------- | -------------------------------------------------------- |
+| `border_color`          | Specifies the border color of an element.                                     | `border_color-red`                                       |
+| `border_radius`         | Defines the border radius for rounded corners.                                | `rounded-lg`                                             |
+| `background_color`      | Sets the background color of an element.                                      | `bg-blue-500`                                            |
+| `text_color`            | Specifies the text color of an element.                                       | `text_color-white`                                       |
+| `text_size`             | Sets the size of the text.                                                    | `text-lg`                                                |
+| `interaction`           | Specifies the interaction state of an element.                                | `interaction-hovered`                                    |
+| `focus_policy`          | Defines how an element should respond to focus events.                        | `focus-none`                                             |
+| `image`                 | Specifies an image for the element.                                           | `image-my_image` _(unimplemented)_                       |
+| `transform`             | Applies a transformation such as translation, rotation, or scaling.           | `transform-r-45_0.5_0`                                   |
+| `global_transform`      | Specifies a global transformation for the element.                            | `global_transform-my_global_transform` _(unimplemented)_ |
+| `visibility`            | Controls the visibility of an element.                                        | `visibility-hidden`                                      |
+| `inherited_visibility`  | Indicates whether an element inherits visibility from its parent.             | `inherited_visibility-true`                              |
+| `view_visibility`       | Controls the visibility of the view.                                          | `view_visibility-visible`                                |
+| `z_index`               | Sets the stack order of an element.                                           | `z-10`                                                   |
+| `display`               | Defines the display style of the element (e.g., flex, grid, none).            | `display-flex`                                           |
+| `position`              | Specifies the positioning type of an element (e.g., relative, absolute).      | `position-absolute`                                      |
+| `overflow`              | Controls how content that overflows the element's box is handled.             | `overflow-clip`                                          |
+| `direction`             | Defines the text direction (e.g., left-to-right, right-to-left).              | `direction-rtl`                                          |
+| `left`                  | Sets the left position of an absolutely positioned element.                   | `left-10px`                                              |
+| `right`                 | Sets the right position of an absolutely positioned element.                  | `right-0px`                                              |
+| `top`                   | Sets the top position of an absolutely positioned element.                    | `top-20px`                                               |
+| `bottom`                | Sets the bottom position of an absolutely positioned element.                 | `bottom-30px`                                            |
+| `width`                 | Sets the width of the element.                                                | `width-100%`                                             |
+| `height`                | Sets the height of the element.                                               | `height-50vh`                                            |
+| `min_width`             | Sets the minimum width of the element.                                        | `min_width-300px`                                        |
+| `min_height`            | Sets the minimum height of the element.                                       | `min_height-200px`                                       |
+| `max_width`             | Sets the maximum width of the element.                                        | `max_width-500px`                                        |
+| `max_height`            | Sets the maximum height of the element.                                       | `max_height-400px`                                       |
+| `aspect_ratio`          | Defines the aspect ratio of the element.                                      | `aspect-16_9`                                            |
+| `align_items`           | Sets the alignment of items within a flex or grid container.                  | `align_items-center`                                     |
+| `justify_items`         | Sets the justification of items within a flex or grid container.              | `justify_items-space-between`                            |
+| `align_self`            | Overrides the default alignment for a specific item.                          | `align_self-end`                                         |
+| `justify_self`          | Overrides the default justification for a specific item.                      | `justify_self-center`                                    |
+| `align_content`         | Aligns the content within a flex or grid container when there is extra space. | `align_content-around`                                   |
+| `justify_content`       | Justifies the content within a flex or grid container.                        | `justify_content-evenly`                                 |
+| `margin`                | Sets the margin around the element.                                           | `margin-10px`                                            |
+| `padding`               | Sets the padding within the element.                                          | `padding-15px`                                           |
+| `border`                | Sets the border size around the element.                                      | `border-2px`                                             |
+| `flex_direction`        | Defines the direction of flex items.                                          | `flex_direction-row`                                     |
+| `flex_wrap`             | Controls whether flex items should wrap onto multiple lines.                  | `flex_wrap-wrap`                                         |
+| `flex_grow`             | Specifies how much a flex item can grow relative to the rest.                 | `flex_grow-1`                                            |
+| `flex_shrink`           | Specifies how much a flex item can shrink relative to the rest.               | `flex_shrink-0`                                          |
+| `flex_basis`            | Defines the default size of a flex item before space is distributed.          | `flex_basis-200px`                                       |
+| `row_gap`               | Sets the gap between rows in a grid or flex layout.                           | `row_gap-20px`                                           |
+| `column_gap`            | Sets the gap between columns in a grid or flex layout.                        | `column_gap-10px`                                        |
+| `grid_auto_flow`        | Defines how auto-placed items in a grid layout are flowed.                    | `grid_auto_flow-col` _(unimplemented)_                   |
+| `grid_template_rows`    | Defines the row sizes in a grid layout.                                       | `grid_template_rows-100px,200px` _(unimplemented)_       |
+| `grid_template_columns` | Defines the column sizes in a grid layout.                                    | `grid_template_columns-50%,25%` _(unimplemented)_        |
+| `grid_auto_rows`        | Sets the size of automatically placed rows.                                   | `grid_auto_rows-100px,200px` _(unimplemented)_           |
+| `grid_auto_columns`     | Sets the size of automatically placed columns.                                | `grid_auto_columns-50%,25%` _(unimplemented)_            |
+| `grid_row`              | Places an item in a specific row of a grid layout.                            | `grid_row-1 2` _(unimplemented)_                         |
+| `grid_column`           | Places an item in a specific column of a grid layout.                         | `grid_column-1 2` _(unimplemented)_                      |
+
+---
 
 ## Documentation
 
-For full API documentation, usage details, and more examples, refer to the [SubmergeUI documentation](https://docs.rs/submergeui) (coming soon).
+For full API documentation, usage details, and more examples, refer to the [SubmergeUI documentation](https://docs.rs/bevy_submerge_ui/latest/bevy_submerge_ui/).
 
 ## License
 
