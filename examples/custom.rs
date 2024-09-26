@@ -13,10 +13,13 @@ use bevy_submerge_ui::{
     utils::{border_radius::SubmergeBR, colors::SubmergeColors, font_size::SubmergeText},
     widgets::{
         input::InputBundle,
+        selector::{Selector, SelectorBundle, SelectorType},
         slider::SliderBundle,
         style_bundles::{
             InputComponentStyle, InputStyleBundle, SliderComponentsStyle, SliderStyleBundle,
+            ToggleComponentStyle, ToggleStyleBundle,
         },
+        toggle::ToggleBundle,
         widget_plugin::SubmergeWidgets,
     },
 };
@@ -104,19 +107,65 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
                     height: Val::Percent(100.0),
                     align_items: AlignItems::Center,
                     justify_content: JustifyContent::Center,
+                    flex_wrap: FlexWrap::Wrap,
                     ..default()
                 },
                 ..default()
             },
         )
-        .children(["slider", "slider2", "input1"]),
+        .children([
+            "slider",
+            "slider2",
+            "new_toggle",
+            "input1",
+            "input2",
+            "new_selector",
+        ]),
+    );
+
+    commands.spawn(
+        SelectorBundle::new(
+            "new_selector",
+            ContainerStyleBundle {
+                ..Default::default()
+            },
+            SelectorType::Checkbox,
+        )
+        .children(["slider", "slider2"]),
     );
 
     commands.spawn(SliderBundle::new("slider", slider_style));
     commands.spawn(SliderBundle::new("slider2", slider_style_2));
-    // commands.spawn(SliderBundle::new(
-    //     "slider3",
-    //     SliderStyleBundle { ..default() },
-    // )); //todo: Modify default style for SliderStyleBundle
-    commands.spawn(InputBundle::new("input1", input_style, "My first text"));
+
+    let toggle_style = ToggleStyleBundle {
+        style: Style {
+            height: Val::Auto,
+            width: Val::Px(50.),
+            padding: UiRect::all(Val::Px(2.)),
+            align_items: AlignItems::Center,
+            justify_content: JustifyContent::Start,
+            ..default()
+        },
+        component_style: ToggleComponentStyle {
+            indicator_color: SubmergeColors::color(SubmergeColors::GRAY700),
+            active_color: SubmergeColors::color(SubmergeColors::PURPLE400),
+            indicator_active_color: SubmergeColors::color(SubmergeColors::WHITE),
+            height: Val::Px(20.),
+            width: Val::Px(20.),
+            border_radius: BorderRadius::all(Val::Percent(100.)),
+            ..default()
+        },
+        background_color: BackgroundColor(SubmergeColors::color(SubmergeColors::GRAY100)),
+        border_radius: BorderRadius::all(Val::Percent(100.)),
+        ..default()
+    };
+
+    commands.spawn(ToggleBundle::new("new_toggle", toggle_style));
+
+    commands.spawn(InputBundle::new(
+        "input1",
+        input_style.clone(),
+        "My first text",
+    ));
+    commands.spawn(InputBundle::new("input2", input_style, "My second text"));
 }
