@@ -5,9 +5,10 @@ use bevy::{
 use bevy_submerge_ui::{
     core::{
         style_bundles::{ButtonStyleBundle, ContainerStyleBundle, SubmergeStyle},
-        ui_bundles::{SButtonBundle, SContainerBundle, STextBundle, WithChildren},
-        ui_components::Draggable,
+        ui_bundles::{AddChildren, SButtonBundle, SContainerBundle, STextBundle, WithChildren},
+        ui_components::{Draggable, SubmergeId},
         ui_plugin::SubmergeUi,
+        ui_systems::ChildrenResource,
     },
     utils::{border_radius::SubmergeBR, colors::SubmergeColors, font_size::SubmergeText},
 };
@@ -26,7 +27,11 @@ fn _sys(query: Query<&Style>) {
     }
 }
 
-fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
+fn setup(
+    mut commands: Commands,
+    asset_server: Res<AssetServer>,
+    mut children_resource: ResMut<ChildrenResource>,
+) {
     // let a = NORMAL_BUTTON.into();
     let s_button_style: ButtonStyleBundle = ButtonStyleBundle {
         style: Style {
@@ -84,6 +89,15 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
         )
         .children(["play_button", "another_play_button"]),
     );
+
+    commands
+        .spawn(STextBundle::from_section("Some Button", text_style.clone()))
+        .insert_id("some_text", &mut children_resource);
+
+    commands
+        .spawn(SButtonBundle::new("play_button_2", button_style.clone()))
+        // .insert_id("play_button_2", &mut children_resource)
+        .child("some_text", &mut children_resource);
 
     commands.spawn(SButtonBundle::new("play_button", button_style).child("play_button_txt"));
     commands

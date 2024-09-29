@@ -17,6 +17,9 @@ pub struct Input {
 pub struct InputText;
 
 #[derive(Component, Debug, Clone, Default)]
+pub struct InputInnerContainer;
+
+#[derive(Component, Debug, Clone, Default)]
 pub struct InputCaret;
 
 #[derive(Bundle, Debug, Clone, Default)]

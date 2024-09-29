@@ -7,3 +7,6 @@ pub struct SpawnWidgetComponent {
 
 #[derive(Component, Debug)]
 pub struct Observing;
+
+#[derive(Component, Debug)]
+pub struct Hovering;

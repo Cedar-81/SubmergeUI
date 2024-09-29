@@ -6,6 +6,10 @@ pub struct UiComponent {
     pub children: Vec<String>,
 }
 
+/// This system makes is possible to use custom id's with any ui bundle even those that comes with bevy itself.
+#[derive(Component, Clone, Debug)]
+pub struct SubmergeId(pub String);
+
 impl Default for UiComponent {
     fn default() -> Self {
         Self {

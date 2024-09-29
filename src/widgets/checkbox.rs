@@ -5,51 +5,51 @@ use bevy::{
 
 use crate::core::{style_bundles::ContainerStyleBundle, ui_components::UiComponent};
 
-use super::style_bundles::{ToggleComponentStyle, ToggleStyleBundle};
+use super::style_bundles::{CheckboxComponentStyle, CheckboxStyleBundle};
 
 #[derive(Component, Debug, Clone)]
-pub struct Toggle {
+pub struct Checkbox {
     pub active: bool,
 }
 
 #[derive(Component, Debug, Clone, Default)]
-pub struct ToggleIndicator;
+pub struct CheckboxIndicator;
 
 #[derive(Bundle, Debug, Clone, Default)]
-pub struct ToggleBundle {
+pub struct CheckboxBundle {
     pub ui_component: UiComponent,
     /// Describes the logical size of the node
     pub node: Node,
     /// Marker component that signals this node is a button
-    pub tag: Toggle,
-    pub style: ToggleStyleBundle,
+    pub tag: Checkbox,
+    pub style: CheckboxStyleBundle,
 }
 
 #[derive(Bundle, Debug, Clone, Default)]
-pub struct ToggleIndicatorBundle {
+pub struct CheckboxIndicatorBundle {
     pub ui_component: UiComponent,
     /// Describes the logical size of the node
     pub node: Node,
     /// Marker component that signals this node is a button
-    pub tag: ToggleIndicator,
+    pub tag: CheckboxIndicator,
     pub style: ContainerStyleBundle,
 }
 
-impl ToggleBundle {
-    pub fn new(id: &str, style: ToggleStyleBundle) -> Self {
+impl CheckboxBundle {
+    pub fn new(id: &str, style: CheckboxStyleBundle) -> Self {
         Self {
             ui_component: UiComponent {
                 id: id.to_string(),
                 children: Vec::new(),
             },
-            tag: Toggle { active: false },
+            tag: Checkbox { active: false },
             style,
             ..Default::default()
         }
     }
 }
 
-impl ToggleIndicatorBundle {
+impl CheckboxIndicatorBundle {
     pub fn new(id: &str, style: ContainerStyleBundle) -> Self {
         Self {
             ui_component: UiComponent {
@@ -62,7 +62,7 @@ impl ToggleIndicatorBundle {
     }
 }
 
-impl Default for Toggle {
+impl Default for Checkbox {
     fn default() -> Self {
         Self { active: false }
     }
