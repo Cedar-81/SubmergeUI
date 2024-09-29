@@ -452,19 +452,14 @@ pub fn spawn_selector(
                 commands
                     .entity(*child)
                     .insert(PickableBundle::default())
-                    .insert(On::<
-                    Pointer<Click>,
-                >::run(
-                    move |mut pc_click_event: EventWriter<ParentChildClickedEntityEvent>,
-                          mut click_event: EventWriter<ClickedEntityEvent>| {
-                        pc_click_event.send(ParentChildClickedEntityEvent {
-                            parent: parent_entity,
-                            child: Some(child_entity),
-                        });
-
-                        click_event.send(ClickedEntityEvent(child_entity));
-                    },
-                ));
+                    .insert(On::<Pointer<Click>>::run(
+                        move |mut pc_click_event: EventWriter<ParentChildClickedEntityEvent>| {
+                            pc_click_event.send(ParentChildClickedEntityEvent {
+                                parent: parent_entity,
+                                child: Some(child_entity),
+                            });
+                        },
+                    ));
                 active_widget
                     .entity_component_map
                     .entry(entity)
@@ -490,8 +485,10 @@ pub fn handle_selector_children(
                         selector.active.clear();
                         selector.active.push(child);
                     }
+                    // println!("active: {:?}", selector.active);
                 }
                 SelectorType::Checkbox => {
+                    println!("in checkbox");
                     if let Some(child) = ev.child {
                         // If the entity is already active, remove it
                         if selector.active.contains(&child) {
@@ -501,15 +498,18 @@ pub fn handle_selector_children(
                             selector.active.push(child);
                         }
                     }
+                    // println!("active: {:?}", selector.active);
                 }
             }
 
             for child in children.iter() {
                 if let Ok(mut toggle) = toggle_query.get_mut(*child) {
                     toggle.active = selector.active.contains(child);
+                    // println!("toggle: {}", toggle.active);
                 }
                 if let Ok(mut checkbox) = checkbox_query.get_mut(*child) {
                     checkbox.active = selector.active.contains(child);
+                    // println!("checkbox: {}", checkbox.active);
                 }
             }
         }
