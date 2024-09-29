@@ -137,7 +137,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
                 background_color: BackgroundColor(SubmergeColors::color(SubmergeColors::AMBER100)),
                 ..Default::default()
             },
-            SelectorType::Checkbox,
+            SelectorType::Radio,
         )
         .children(["new_toggle1", "new_toggle2", "checkbox_2", "checkbox_3"]),
     );
